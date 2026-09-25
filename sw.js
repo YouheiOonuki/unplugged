@@ -1,15 +1,15 @@
 /**
- * __TITLE__ - sw.js（Service Worker。オフライン対応にするツールだけ使う）
+ * アンプラグド・プログラミング教材メーカー - sw.js（Service Worker。オフライン対応にするツールだけ使う）
  * hoshizora-sanpo の sw.js と同じ方針:
  * - ネットワーク優先。オンラインなら常に最新を取得してキャッシュも更新し、オフライン（または応答が遅い）ときだけキャッシュを返す
  * - yorozu-craft.com の各ツールは同じオリジンでキャッシュ領域を共有するため、
- *   キャッシュ名には必ず "__REPO__-" を付け、ほかのツールのキャッシュには触れない
+ *   キャッシュ名には必ず "unplugged-" を付け、ほかのツールのキャッシュには触れない
  * - 自分のパス配下だけを扱う。広告・アクセス解析など別オリジンや、ほかのツールのファイルは横取りしない
  */
 
 'use strict';
 
-const CACHE_PREFIX = '__REPO__-';
+const CACHE_PREFIX = 'unplugged-';
 const CACHE_NAME   = `${CACHE_PREFIX}v1`; // キャッシュする中身の構成を変えたら上げる
 
 /** 初回インストール時に取得しておくファイル */
@@ -17,9 +17,14 @@ const PRECACHE_URLS = [
   './',
   './index.html',
   './guide.html',
+  './try.html',
+  './jugyou.html',
   './style.css',
   './constants.js',
   './calc.js',
+  './puzzle.js',
+  './sheets.js',
+  './try.js',
   './screen.js',
   './main.js',
   './manifest.webmanifest',

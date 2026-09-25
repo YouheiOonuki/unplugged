@@ -6,16 +6,48 @@
 (function (root) {
   'use strict';
 
+  var P = (typeof module !== 'undefined' && module.exports) ? require('./puzzle.js') : root.Puzzle;
+
   /**
-   * 例: 金額を指定の単位で切り上げる（使わなければ消す）
-   * @param {number} amount 金額
-   * @param {number} unit   単位（例: 100）
-   * @returns {number}
+   * 設定をそろえる（保存・共有リンク・読み込んだファイルの中身はそのまま信じない）
+   * { step: 1|2|3, level, mode: 'yaji'|'muki', seed: 1〜99999, boards: 1〜4, parts: { board, cards, answer }, big, name（20 字まで）, credit }
    */
-  function roundUp(amount, unit) {
-    var a = Number(amount), u = Number(unit) || 1;
-    if (!isFinite(a)) return NaN;
-    return Math.ceil(a / u) * u;
+  function normalizeSettings(d) {
+    d = d && typeof d === 'object' ? d : {};
+    var o = P.normalizeOpts(d);
+    var parts = d.parts && typeof d.parts === 'object' ? d.parts : {};
+    var boards = Math.floor(Number(d.boards));
+    return {
+      step: o.step, level: o.level, mode: o.mode, seed: o.seed,
+      boards: boards >= 1 && boards <= 4 ? boards : 1,
+      parts: { board: parts.board !== false, cards: parts.cards !== false, answer: parts.answer !== false },
+      big: d.big === true,
+      name: typeof d.name === 'string' ? d.name.replace(/[\u0000-\u001f]/g, '').slice(0, 20) : '',
+      credit: d.credit !== false,
+    };
+  }
+
+  // --- 共有リンク（README 11: # 以降）。base64url の JSON。なまえは入れない ---
+  function b64urlEncode(str) {
+    var bytes = unescape(encodeURIComponent(str));
+    var b = typeof btoa === 'function' ? btoa(bytes) : Buffer.from(bytes, 'binary').toString('base64');
+    return b.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function b64urlDecode(s) {
+    s = s.replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    var bytes = typeof atob === 'function' ? atob(s) : Buffer.from(s, 'base64').toString('binary');
+    return decodeURIComponent(escape(bytes));
+  }
+  function toShareHash(settings) {
+    var s = normalizeSettings(settings);
+    delete s.name;
+    return '#s=' + b64urlEncode(JSON.stringify(s));
+  }
+  function fromShareHash(hash) {
+    var m = /^#s=([A-Za-z0-9_-]+)$/.exec(hash || '');
+    if (!m) return null;
+    try { var o = JSON.parse(b64urlDecode(m[1])); return o && typeof o === 'object' ? normalizeSettings(o) : null; } catch (e) { return null; }
   }
 
   // --- バックアップファイル（README「ツールを追加するとき」20。決定 D31） ---
@@ -58,7 +90,7 @@
     return { ok: true, data: data };
   }
 
-  var api = { roundUp: roundUp, backupFileName: backupFileName, buildBackup: buildBackup, parseBackup: parseBackup };
+  var api = { normalizeSettings: normalizeSettings, toShareHash: toShareHash, fromShareHash: fromShareHash, backupFileName: backupFileName, buildBackup: buildBackup, parseBackup: parseBackup };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Calc = api;
 })(this);

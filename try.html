@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ロボットを動かしてためす｜アンプラグド・プログラミング教材メーカー｜yorozu-craft</title>
+  <meta name="description" content="印刷した盤面と同じ盤面で、カードを並べてロボットを動かし、ゴールに着くかをブラウザでたしかめる。登録なし。">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yorozu-craft.com/unplugged/try.html">
+  <meta property="og:title" content="ロボットを動かしてためす｜アンプラグド・プログラミング教材メーカー">
+  <meta property="og:description" content="印刷した盤面と同じ盤面で、カードを並べてロボットを動かし、ゴールに着くかをブラウザでたしかめる。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yorozu-craft.com/unplugged/try.html">
+  <meta property="og:site_name" content="yorozu-craft">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:image" content="https://yorozu-craft.com/unplugged/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#8b4513" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1814" media="(prefers-color-scheme: dark)">
+  <!-- こどもが操作する画面なので AdSense は meta だけ（todofuken-quiz の本体と同じ。README「ツールを追加するとき」5・D18）。広告は使い方ページで -->
+  <meta name="google-adsense-account" content="ca-pub-5375267956079717">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="try-page">
+
+  <header class="app-header">
+    <h1>ロボットを うごかして たしかめる</h1>
+  </header>
+
+  <main class="app-main">
+    <div class="try-top">
+      <span id="try-info"></span>
+      <a id="to-print" href="./">印刷・設定へ</a>
+    </div>
+
+    <div class="try-board" id="board-box"></div>
+    <div class="palette" id="palette" role="group" aria-label="カード"></div>
+
+    <div class="prog-box" id="prog-box" aria-live="polite"><p class="small" id="prog-empty">上の カードを おして ならべよう</p></div>
+    <p class="prog-count" id="prog-count"></p>
+
+    <div class="run-row">
+      <button type="button" class="btn" id="run">うごかす ▶</button>
+      <button type="button" class="btn btn-sub" id="undo">1つ けす</button>
+      <button type="button" class="btn btn-sub" id="clear">ぜんぶ けす</button>
+    </div>
+    <p class="try-result" id="result" role="status"></p>
+    <p class="try-rule" id="try-rule"></p>
+
+    <details class="card opt" id="opt-next">
+      <summary>べつの もんだい: <span class="opt-state"></span></summary>
+      <div class="field">
+        <label for="t-step">ならうこと</label>
+        <select id="t-step"><option value="1">じゅんばん</option><option value="2">くりかえし</option><option value="3">もし</option></select>
+      </div>
+      <div class="field">
+        <label for="t-level">むずかしさ</label>
+        <select id="t-level"><option value="easy">かんたん 4×4</option><option value="normal">ふつう 5×5</option><option value="hard">むずかしい 6×6</option></select>
+      </div>
+      <div class="field">
+        <label for="t-mode">カード</label>
+        <select id="t-mode"><option value="yaji">やじるし</option><option value="muki">まえ・みぎ・ひだり</option></select>
+      </div>
+      <button type="button" class="btn" id="next">つぎの もんだい</button>
+    </details>
+
+    <details class="card opt" id="opt-answer">
+      <summary>こたえの れい（先生・おうちの人用）</summary>
+      <div id="answer"></div>
+    </details>
+
+    <p class="small"><a href="./guide.html">使い方・カードのきまり</a> ／ <a href="./jugyou.html">授業の流れ</a></p>
+  </main>
+
+  <footer class="app-footer">
+    <nav class="footer-nav" aria-label="フッターナビゲーション">
+      <ul>
+        <li><a href="../">yorozu-craft トップ</a></li>
+        <li><a href="./">アンプラグド・プログラミング教材メーカー</a></li>
+        <li><a href="./try.html" aria-current="page">ためす</a></li>
+        <li><a href="../about.html">運営者情報</a></li>
+        <li><a href="../privacy-policy.html">プライバシーポリシー</a></li>
+      </ul>
+    </nav>
+    <p>&copy; 2026 yorozu-craft. All rights reserved.</p>
+  </footer>
+
+  <script src="./screen.js"></script>
+  <script src="./puzzle.js"></script>
+  <script src="./calc.js"></script>
+  <script src="./sheets.js"></script>
+  <script src="./try.js"></script>
+  <!-- Cloudflare Web Analytics（Cookie を使わないアクセス解析） --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b79bf821e1fd4b6683866d493b1de426"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

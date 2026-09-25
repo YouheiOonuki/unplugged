@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>__TITLE__｜yorozu-craft</title>
-  <meta name="description" content="__DESCRIPTION__">
+  <title>アンプラグド・プログラミング教材メーカー（命令カード・盤面を印刷）｜yorozu-craft</title>
+  <meta name="description" content="アンプラグド・プログラミングの教材を無料で印刷。ロボットの盤面・命令カード・先生用の答え。じゅんばん・くりかえし・もしの3段階で、毎回ちがう盤面。登録なし。">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://yorozu-craft.com/__REPO__/">
+  <link rel="canonical" href="https://yorozu-craft.com/unplugged/">
 
-  <meta property="og:title" content="__TITLE__｜yorozu-craft">
-  <meta property="og:description" content="__DESCRIPTION__">
+  <meta property="og:title" content="アンプラグド・プログラミング教材メーカー｜yorozu-craft">
+  <meta property="og:description" content="アンプラグド・プログラミングの教材を無料で印刷。ロボットの盤面・命令カード・先生用の答え。じゅんばん・くりかえし・もしの3段階で、毎回ちがう盤面。登録なし。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://yorozu-craft.com/__REPO__/">
+  <meta property="og:url" content="https://yorozu-craft.com/unplugged/">
   <meta property="og:site_name" content="yorozu-craft">
   <meta property="og:locale" content="ja_JP">
-  <meta property="og:image" content="https://yorozu-craft.com/__REPO__/og-image.png">
+  <meta property="og:image" content="https://yorozu-craft.com/unplugged/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -25,111 +25,132 @@
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "__TITLE__",
-    "description": "__DESCRIPTION__",
-    "url": "https://yorozu-craft.com/__REPO__/",
-    "applicationCategory": "UtilitiesApplication",
+    "name": "アンプラグド・プログラミング教材メーカー",
+    "description": "アンプラグド・プログラミングの教材を無料で印刷。ロボットの盤面・命令カード・先生用の答え。じゅんばん・くりかえし・もしの3段階で、毎回ちがう盤面。登録なし。",
+    "url": "https://yorozu-craft.com/unplugged/",
+    "applicationCategory": "EducationalApplication",
     "operatingSystem": "All",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
     "inLanguage": "ja"
   }
   </script>
 
-  <!-- Google AdSense（サイト所有確認 + 広告配信スクリプト）。全画面で操作する画面なら script を消して meta だけ残す -->
+  <!-- Google AdSense（サイト所有確認 + 広告配信スクリプト）。広告は印刷に出さない（style.css の @media print） -->
   <meta name="google-adsense-account" content="ca-pub-5375267956079717">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5375267956079717"
      crossorigin="anonymous"></script>
 
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <!-- PWA-BEGIN -->
   <link rel="manifest" href="./manifest.webmanifest">
-  <!-- PWA-END -->
   <link rel="stylesheet" href="./style.css">
 </head>
-<body>
+<body class="tool-page">
 
-  <!-- 上端の固定バー（SCREEN.md 1.1・D59）。結果が出て、結果が画面の外にあるときだけ screen.js が出す。読み込み時は hidden のまま。
-       2 カラム（下の layout-2col）にするなら class に fixbar-narrow も足す（PC では出さない）。
-       印刷物（設定 → 出力）なら中身を <button type="button">印刷する</button> にし、main.js で onClick を渡す -->
+  <!-- 固定バー（SCREEN.md 1.2・D59）: 印刷ボタンが画面の外にあるときだけ上端に出す。読み込み時は無い -->
   <div class="fixbar" id="fixbar" role="status" hidden>
-    <a href="#result-card"><span id="fixbar-text"></span> ▸ 結果へ</a>
+    <span class="fixbar-type" id="fixbar-text"></span>
+    <button type="button" class="btn" id="fixbar-print">印刷する</button>
   </div>
 
   <header class="app-header">
-    <h1>__TITLE__</h1>
-    <!-- 冒頭は制度 2 文・60 字、道具 1 文・40 字（WRITING.md 1 章）。時点と「外部に送信しない」をここに -->
-    <p class="subtitle">__DESCRIPTION__ 入力は外部に送信しません。</p>
+    <h1>アンプラグド・プログラミング教材メーカー</h1>
+    <p class="subtitle">ロボットの盤面・命令カード・答えを A4 で印刷。登録なし、設定は外部に送信しません。</p>
   </header>
 
-  <!-- 画面の骨組み「入力 → 結果」（yorozu-plans の docs/SCREEN.md 1.1。README「ツールを追加するとき」25）。
-       順番は 1 必須の入力 → 2 結果 → 3 くわしく入れる → 4 保存・書き出し → 5 使い方へのリンク。1 と 2 の間に段落・見出しを挟まない。
-       制度の計算機で PC を 2 カラムにするなら class に layout-2col を足す -->
   <main class="app-main">
-    <form id="form" autocomplete="off" onsubmit="return false">
+    <div id="shared-banner" class="notice" role="status" hidden></div>
 
-      <!-- 1 必須の入力: 空だと結果が出ない項目だけ（制度 6・道具 3・印刷物 4 まで）。h2 は付けず legend。数値の既定は空欄＋ placeholder -->
-      <fieldset class="card req">
-        <legend>金額</legend>
-        <div class="field">
-          <label for="amount">金額（円）</label>
-          <input type="number" id="amount" inputmode="numeric" placeholder="例：1234">
-        </div>
-      </fieldset>
-
-      <!-- 2 結果: 大きな数字 1 つ＋ 1 行（aria-live）。内訳は details.rels。下に免責 1 文と、ほかのツールへの導線 1〜2 行（README 21） -->
-      <section class="card result-card" id="result-card" tabindex="-1" aria-labelledby="h-result">
-        <h2 id="h-result">結果</h2>
-        <div id="result-main" aria-live="polite">
-          <p class="result-big" id="result">—</p>
-          <p class="result-sub" id="result-sub">金額を入れると出ます。</p>
-        </div>
-        <details class="rels">
-          <summary>内訳と途中の計算</summary>
-          <p class="small" id="result-detail">—</p>
-        </details>
-        <p class="small">この計算は目安です。</p>
-      </section>
-
-      <!-- 3 くわしく入れる: 一部の人だけの項目。グループごとに 1 つの details。summary の .opt-state に今の状態（main.js の detailsSummary）。
-           開いた状態は保存しない。道具で任意の項目が無ければ、この節ごと消す -->
-      <div class="opts">
-        <details class="card opt" id="opt-unit">
-          <summary>端数の単位: <span class="opt-state">100 円</span></summary>
-          <div class="field">
-            <label for="unit">切り上げる単位</label>
-            <select id="unit">
-              <option value="100" selected>100 円</option>
-              <option value="1000">1,000 円</option>
-            </select>
-          </div>
-        </details>
+    <!-- 1. 種類（段階） -->
+    <section class="card" id="sec-type" aria-labelledby="h-type">
+      <h2 id="h-type">ならうこと</h2>
+      <div class="types">
+        <label class="tile"><input type="radio" name="step" value="1" checked><span class="t-ico" aria-hidden="true">1</span><span class="t-name">じゅんばん</span><span class="t-sub">順次</span></label>
+        <label class="tile"><input type="radio" name="step" value="2"><span class="t-ico" aria-hidden="true">2</span><span class="t-name">くりかえし</span><span class="t-sub">反復</span></label>
+        <label class="tile"><input type="radio" name="step" value="3"><span class="t-ico" aria-hidden="true">3</span><span class="t-name">もし</span><span class="t-sub">分岐</span></label>
       </div>
-    </form>
+    </section>
 
-    <!-- 4 保存・書き出し（README「ツールを追加するとき」20。定型 2 文＋ボタン） -->
+    <!-- 2. 最小の設定（SCREEN.md 1.2 の 3） -->
+    <fieldset class="card req" id="sec-opts">
+      <legend>盤面とカード</legend>
+      <div class="field">
+        <span class="lbl-plain" id="lbl-level">むずかしさ</span>
+        <div class="seg" role="radiogroup" aria-labelledby="lbl-level">
+          <label><input type="radio" name="level" value="easy" checked> かんたん 4×4</label>
+          <label><input type="radio" name="level" value="normal"> ふつう 5×5</label>
+          <label><input type="radio" name="level" value="hard"> むずかしい 6×6</label>
+        </div>
+      </div>
+      <div class="field">
+        <span class="lbl-plain" id="lbl-mode">カード</span>
+        <div class="seg" role="radiogroup" aria-labelledby="lbl-mode">
+          <label><input type="radio" name="mode" value="yaji" checked> やじるし ↑→↓←</label>
+          <label><input type="radio" name="mode" value="muki"> まえ・みぎ・ひだり</label>
+        </div>
+        <p class="hint" id="mode-note">「みぎ」「ひだり」はロボットから見た向き（その場で回る）。</p>
+      </div>
+    </fieldset>
+
+    <!-- 3. 主なボタン -->
+    <div class="btn-row print-row" id="print-row">
+      <button type="button" class="btn" id="btn-print">印刷する</button>
+      <button type="button" class="btn btn-sub" id="btn-new">べつの盤面にする</button>
+      <a class="btn btn-sub" id="btn-try" href="./try.html">ブラウザでためす</a>
+    </div>
+
+    <!-- 4. 見本（印刷ではこの DOM がそのまま出る） -->
+    <section class="card" id="sec-preview" aria-labelledby="h-preview">
+      <h2 id="h-preview">見本 <span class="small" id="preview-info"></span></h2>
+      <div class="sheets" id="sheets" aria-live="polite"></div>
+    </section>
+
+    <!-- 5. くわしい設定 -->
+    <details class="card opt no-print" id="opt-more">
+      <summary>くわしい設定: <span class="opt-state"></span></summary>
+      <fieldset class="field plain">
+        <legend>印刷するもの</legend>
+        <label class="inline"><input type="checkbox" id="part-board" checked> 盤面（プログラムを書くらん・ロボットのコマつき）</label>
+        <label class="inline"><input type="checkbox" id="part-cards" checked> 命令カード（切り取って使う）</label>
+        <label class="inline"><input type="checkbox" id="part-answer" checked> こたえ（先生・おうちの人用）</label>
+      </fieldset>
+      <div class="field">
+        <label for="boards">盤面の数</label>
+        <select id="boards"><option value="1">1 枚</option><option value="2">2 枚</option><option value="3">3 枚</option><option value="4">4 枚</option></select>
+      </div>
+      <label class="inline field"><input type="checkbox" id="big"> カードを大きく（黒板に貼る。1 ページ 6 まい）</label>
+      <div class="field">
+        <label for="name">なまえ（盤面に入れる。空欄なら書くらん）</label>
+        <input type="text" id="name" maxlength="20" autocomplete="off">
+      </div>
+      <label class="inline field"><input type="checkbox" id="credit" checked> ページの下に「yorozu-craft.com/unplugged/print/ で作成」</label>
+      <div class="field">
+        <label for="seed">もんだい ばんごう（同じ番号なら同じ盤面）</label>
+        <input type="number" id="seed" min="1" max="99999" inputmode="numeric">
+      </div>
+    </details>
+
+    <!-- 6. 共有・保存 -->
     <details class="card opt no-print" id="file-box">
-      <summary>入力の保存・書き出し</summary>
-      <p class="small">入力内容はこの端末のブラウザ（localStorage、キー <code>__REPO___draft</code>）にだけ保存され、外部には送信されません。書き出し・読み込みはこの画面のボタンから。</p>
+      <summary>共有・保存</summary>
+      <p class="small">設定はこの端末のブラウザ（localStorage、キー <code>unplugged_settings</code>）にだけ保存され、外部には送信されません。書き出し・読み込みはこの画面のボタンから。</p>
       <div class="btn-row">
-        <button type="button" id="share" class="btn">結果を開くリンクをコピー</button>
-        <button type="button" id="backup-export" class="btn">ファイルに書き出す</button>
-        <button type="button" id="backup-import" class="btn">ファイルから読み込む</button>
+        <button type="button" id="share" class="btn btn-sub">同じ盤面を開くリンクをコピー</button>
+        <button type="button" id="backup-export" class="btn btn-sub">ファイルに書き出す</button>
+        <button type="button" id="backup-import" class="btn btn-sub">ファイルから読み込む</button>
       </div>
       <input type="file" id="backup-file" accept=".json,application/json" hidden>
       <p id="backup-msg" class="small" aria-live="polite"></p>
     </details>
 
-    <!-- 5 使い方へのリンク（1 行） -->
-    <p class="small"><a href="./guide.html">使い方・根拠・よくある質問</a></p>
-
+    <p class="small no-print"><a href="./guide.html">使い方・カードのきまり・よくある質問</a> ／ <a href="./jugyou.html">授業の流れ（3 つの例）</a> ／ <a href="../print-help.html">スマホで印刷する</a></p>
   </main>
 
   <footer class="app-footer">
     <nav class="footer-nav" aria-label="フッターナビゲーション">
       <ul>
         <li><a href="../">yorozu-craft トップ</a></li>
-        <li><a href="./" aria-current="page">__TITLE__</a></li>
+        <li><a href="./" aria-current="page">アンプラグド・プログラミング教材メーカー</a></li>
         <li><a href="./guide.html">使い方・よくある質問</a></li>
         <li><a href="../about.html">運営者情報</a></li>
         <li><a href="../privacy-policy.html">プライバシーポリシー</a></li>
@@ -138,9 +159,10 @@
     <p>&copy; 2026 yorozu-craft. All rights reserved.</p>
   </footer>
 
-  <script src="./constants.js"></script>
   <script src="./screen.js"></script>
+  <script src="./puzzle.js"></script>
   <script src="./calc.js"></script>
+  <script src="./sheets.js"></script>
   <script src="./main.js"></script>
   <!-- Cloudflare Web Analytics（Cookie を使わないアクセス解析） --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b79bf821e1fd4b6683866d493b1de426"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
