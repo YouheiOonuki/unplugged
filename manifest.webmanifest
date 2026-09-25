@@ -1,8 +1,8 @@
 {
-  "id": "/__REPO__/",
-  "name": "__TITLE__｜yorozu-craft",
-  "short_name": "__TITLE__",
-  "description": "__DESCRIPTION__",
+  "id": "/unplugged/",
+  "name": "アンプラグド・プログラミング教材メーカー｜yorozu-craft",
+  "short_name": "アンプラグド教材",
+  "description": "アンプラグド・プログラミングの教材を無料で印刷。ロボットの盤面・命令カード・先生用の答え。じゅんばん・くりかえし・もしの3段階で、毎回ちがう盤面。登録なし。",
   "lang": "ja",
   "start_url": "./",
   "scope": "./",

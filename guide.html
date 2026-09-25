@@ -3,40 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>使い方・よくある質問｜__TITLE__｜yorozu-craft</title>
-  <meta name="description" content="__TITLE__の使い方、計算の根拠、よくある質問、ご利用上の注意。">
+  <title>使い方・よくある質問｜アンプラグド・プログラミング教材メーカー｜yorozu-craft</title>
+  <meta name="description" content="アンプラグド・プログラミング教材の使い方。カードのきまり（じゅんばん・くりかえし・もし）、盤面の作り方、印刷のしかた、よくある質問。">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://yorozu-craft.com/__REPO__/guide.html">
+  <link rel="canonical" href="https://yorozu-craft.com/unplugged/guide.html">
 
-  <meta property="og:title" content="使い方・よくある質問｜__TITLE__">
-  <meta property="og:description" content="__TITLE__の使い方、計算の根拠、よくある質問、ご利用上の注意。">
+  <meta property="og:title" content="使い方・よくある質問｜アンプラグド・プログラミング教材メーカー">
+  <meta property="og:description" content="アンプラグド・プログラミング教材の使い方。カードのきまり、盤面の作り方、印刷のしかた、よくある質問。">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://yorozu-craft.com/__REPO__/guide.html">
+  <meta property="og:url" content="https://yorozu-craft.com/unplugged/guide.html">
   <meta property="og:site_name" content="yorozu-craft">
   <meta property="og:locale" content="ja_JP">
-  <meta property="og:image" content="https://yorozu-craft.com/__REPO__/og-image.png">
+  <meta property="og:image" content="https://yorozu-craft.com/unplugged/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- よくある質問（下の #faq と内容をそろえる） -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "無料で使えますか？",
-        "acceptedAnswer": { "@type": "Answer", "text": "はい。会員登録やインストールも不要で、ブラウザだけで使えます。" }
-      },
-      {
-        "@type": "Question",
-        "name": "入力した内容はどこに保存されますか？",
-        "acceptedAnswer": { "@type": "Answer", "text": "お使いのブラウザの中にだけ保存され、外部のサーバーには送信されません。" }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "アンプラグド・プログラミングの教材を無料でダウンロード（印刷）できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。盤面・命令カード・こたえを A4 で印刷するか、印刷の画面で PDF に保存します。登録はいりません。"
       }
-    ]
-  }
+    },
+    {
+      "@type": "Question",
+      "name": "低学年でも使えますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "「じゅんばん」「かんたん」「やじるし」なら、ます目の上下左右だけで進むので、1・2 年生からを想定しています。「みぎ」「ひだり」でその場で回るカードは、左右の区別がついてからがおすすめです。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "クラス全員に同じ盤面を配れますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "同じ「もんだい ばんごう」なら同じ盤面になります。共有リンクを別の端末で開いても同じです。"
+      }
+    }
+  ]
+}
   </script>
 
   <!-- Google AdSense（サイト所有確認 + 広告配信スクリプト） -->
@@ -51,60 +65,76 @@
 <body>
 
   <header class="app-header">
-    <h1>__TITLE__ の使い方</h1>
-    <p class="subtitle">使い方・計算の根拠・よくある質問・ご利用上の注意</p>
+    <h1>アンプラグド・プログラミング教材の使い方</h1>
+    <p class="subtitle">カードのきまり・盤面の作り方・よくある質問</p>
   </header>
 
   <main class="app-main">
 
-    <p class="card" style="text-align:center"><a href="./">▶ __TITLE__ を使う</a></p>
+    <p class="card" style="text-align:center"><a href="./">▶ 盤面とカードを作る</a> ／ <a href="./jugyou.html">授業の流れ（3 つの例）</a></p>
 
     <article class="card content" id="howto">
-      <h2>使い方</h2>
+      <h2>使い方（印刷して使うアンプラグド教材）</h2>
+      <p>コンピュータを使わずに、カードを並べてロボットをゴールまで動かす教材です。</p>
       <ol>
-        <li>（手順を書く）</li>
+        <li>「ならうこと」と「むずかしさ」「カード」を選ぶ</li>
+        <li>「印刷する」で盤面・命令カード・こたえを A4 に印刷</li>
+        <li>カードとロボットのコマを切り取り、盤面の上で動かす</li>
+        <li>「ブラウザでためす」で同じ盤面の答えを確かめる</li>
       </ol>
     </article>
 
-    <!-- 制度・単価など時点のある値を使うツールだけ残す。値は constants.js、画面にも時点を出す -->
-    <article class="card content" id="basis">
-      <h2>根拠と確認日</h2>
-      <dl class="info-list">
-        <dt>根拠</dt>
-        <dd>（法令・公式ページの名前）</dd>
-        <dt>最終確認日</dt>
-        <dd><time datetime="__DATE__">__DATE_JA__</time></dd>
-      </dl>
-      <p class="small">制度や単価は変わることがあります。最終確認日から時間がたっている場合は、公式ページで最新の情報をご確認ください。</p>
+    <article class="card content" id="rules">
+      <h2>命令カードのきまり</h2>
+      <table>
+        <tr><th>カード</th><th>すること</th></tr>
+        <tr><td>やじるし（うえ・みぎ・した・ひだり）</td><td>その向きへ 1 マス</td></tr>
+        <tr><td>まえ</td><td>ロボットが向いている方へ 1 マス</td></tr>
+        <tr><td>みぎ・ひだり</td><td>その場で向きだけ変える</td></tr>
+        <tr><td>くりかえし □ かい 〜 ここまで</td><td>間のカードを □ の回数だけ</td></tr>
+        <tr><td>もし まえが とおれない なら 〜 ここまで</td><td>前がいわか盤の外のときだけ、間のカードをする</td></tr>
+      </table>
+      <p>いわと盤の外には進めず、ゴールに着いたらそこで終わりです。カードの枚数には上限があり、盤面に書いてあります。</p>
+    </article>
+
+    <article class="card content" id="levels">
+      <h2>盤面の作り方と「くりかえし」「もし」</h2>
+      <p>盤面は 4×4・5×5・6×6 のます目で、もんだい ばんごうから毎回ちがう形に作ります。どの盤面も、上限の枚数でゴールに着けることを確かめてから出します。</p>
+      <p>「くりかえし」と「もし」の盤面は、じゅんばんのカードだけで並べると上限を超えるように、いわを置いてあります。まとめないと上限におさまらないので、まとめる必要が出てきます。</p>
+      <details><summary>むずかしさごとの数</summary>
+        <p>かんたん: いわ 2〜3 こ、じゅんばんの上限はいちばん短い並べ方 ＋2 枚。ふつう: いわ 4〜5 こ、＋1 枚。むずかしい: いわ 6〜8 こ、＋0 枚。くりかえし・もしの盤面は、上の数より多くいわを置くことがあります。</p>
+      </details>
     </article>
 
     <article class="card content" id="faq">
       <h2>よくある質問</h2>
       <dl class="faq">
-        <dt>無料で使えますか？</dt>
-        <dd>はい。会員登録やインストールも不要で、ブラウザだけで使えます。</dd>
-        <dt>入力した内容はどこに保存されますか？</dt>
-        <dd>お使いのブラウザの中にだけ保存され、外部のサーバーには送信されません。</dd>
+        <dt>アンプラグド・プログラミングの教材を無料でダウンロード（印刷）できますか？</dt>
+        <dd>はい。盤面・命令カード・こたえを A4 で印刷するか、印刷の画面で PDF に保存します。登録はいりません。</dd>
+        <dt>低学年でも使えますか？</dt>
+        <dd>「じゅんばん」「かんたん」「やじるし」なら、ます目の上下左右だけで進むので、1・2 年生からを想定しています。「みぎ」「ひだり」でその場で回るカードは、左右の区別がついてからがおすすめです。</dd>
+        <dt>クラス全員に同じ盤面を配れますか？</dt>
+        <dd>同じ「もんだい ばんごう」なら同じ盤面になります。共有リンクを別の端末で開いても同じです。</dd>
       </dl>
     </article>
 
-    <!-- README「ツールを追加するとき」8: ツール固有の注意・データの扱いはここに書く -->
+    <!-- README「ツールを追加するとき」8: ツール固有の注意・データの扱い -->
     <article class="card content" id="notes">
       <h2>ご利用上の注意・データの扱い</h2>
       <ul>
-        <li><strong>保存されるデータ</strong>：（何をブラウザに保存するか。保存しないならそう書く）</li>
-        <li><strong>バックアップ</strong>：「ファイルに書き出す」で、（保存している内容）を JSON ファイルにできます。ファイルはこの端末の中で作り、どこにも送信しません。機種変更のときやブラウザのデータを消す前に書き出しておき、新しい端末ではファイルを移して「ファイルから読み込む」を押してください（今の内容はファイルの内容に置き換わります）。（ブラウザに保存しないツールではこの行を消す）</li>
-        <li><strong>共有リンク</strong>：（共有機能があれば、リンクに何が含まれるか。URL の「#」以降に入るのでサーバーには送信されない）</li>
-        <li><strong>結果の扱い</strong>：（計算結果は目安であること、最終的な確認先など）</li>
+        <li><strong>保存</strong>：設定はこの端末のブラウザ（localStorage、キー <code>unplugged_settings</code>）にだけ保存され、外部には送信されません。書き出し・読み込みは作る画面のボタンから。</li>
+        <li><strong>共有リンク</strong>：設定ともんだい ばんごうが URL の「#」以降に入ります（なまえは入りません）。サーバーには送信されません。</li>
+        <li><strong>学校で使うとき</strong>：根拠: 文部科学省「小学校プログラミング教育の手引（第三版）」。最終確認日 <time datetime="2026-09-25">2026年9月25日</time>。手引は、コンピュータを使わない活動だけにせず、コンピュータを使う学習と関連させることが望まれるとしています（p.20）。
+          <details><summary>原文の場所</summary><p><a href="https://www.mext.go.jp/a_menu/shotou/zyouhou/detail/1403162.htm" rel="noopener">文部科学省「小学校プログラミング教育の手引」</a>（第三版 PDF）: p.9・p.13「プログラミング的思考」、p.20「コンピュータを用いずに行う指導の考え方」、p.62 Q4。</p></details></li>
       </ul>
-      <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSd8B90qh5lEIyr25iw1jOjdQjOyaPZ1_z2wMB4kH-EmEeJYWw/viewform?usp=pp_url&amp;entry.585564634=__REPO__" target="_blank" rel="noopener">ご要望・不具合の報告（Google フォーム）</a>：いただいた内容をもとに直します。お返事はしていません。</p>
+      <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSd8B90qh5lEIyr25iw1jOjdQjOyaPZ1_z2wMB4kH-EmEeJYWw/viewform?usp=pp_url&amp;entry.585564634=unplugged" target="_blank" rel="noopener">ご要望・不具合の報告（Google フォーム）</a>：いただいた内容をもとに直します。お返事はしていません。</p>
       <p>サイト全体の運営者情報・免責事項は<a href="../about.html">こちら</a>、プライバシーポリシーは<a href="../privacy-policy.html">こちら</a>です（すべてのツールで共通）。</p>
     </article>
 
     <article class="card content" id="changelog">
       <h2>更新履歴</h2>
       <ul>
-        <li><time datetime="__DATE__">__DATE_JA__</time> 公開</li>
+        <li><time datetime="2026-09-25">2026年9月25日</time> 公開</li>
       </ul>
     </article>
 
@@ -114,7 +144,7 @@
     <nav class="footer-nav" aria-label="フッターナビゲーション">
       <ul>
         <li><a href="../">yorozu-craft トップ</a></li>
-        <li><a href="./">__TITLE__</a></li>
+        <li><a href="./">アンプラグド・プログラミング教材メーカー</a></li>
         <li><a href="./guide.html" aria-current="page">使い方・よくある質問</a></li>
         <li><a href="../about.html">運営者情報</a></li>
         <li><a href="../privacy-policy.html">プライバシーポリシー</a></li>
@@ -123,6 +153,7 @@
     <p>&copy; 2026 yorozu-craft. All rights reserved.</p>
   </footer>
 
+  <script src="./constants.js"></script>
   <!-- Cloudflare Web Analytics（Cookie を使わないアクセス解析） --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b79bf821e1fd4b6683866d493b1de426"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
