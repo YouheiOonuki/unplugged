@@ -8,7 +8,7 @@
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
-  // カードの名前と説明（印刷のカード・画面のボタン・答えの列で同じ文を使う）
+  // カードの名前と説明（印刷のカード・画面のボタン・答えの列で同じ文を使う）。英語版（en/）は CARDS_EN
   var CARDS = {
     F: { name: 'まえ', sub: '1マス すすむ', cls: 'c-move' },
     R: { name: 'みぎ', sub: 'みぎを むく', cls: 'c-turn' },
@@ -21,6 +21,92 @@
     IF: { name: 'もし', sub: 'まえが とおれない なら', cls: 'c-if' },
     END: { name: 'ここまで', sub: '', cls: 'c-end' },
   };
+  var CARDS_EN = {
+    F: { name: 'Forward', sub: 'move 1 square', cls: 'c-move' },
+    R: { name: 'Turn right', sub: 'stay on the square', cls: 'c-turn' },
+    L: { name: 'Turn left', sub: 'stay on the square', cls: 'c-turn' },
+    N: { name: 'Up', sub: 'move 1 square', cls: 'c-move' },
+    E: { name: 'Right', sub: 'move 1 square', cls: 'c-move' },
+    S: { name: 'Down', sub: 'move 1 square', cls: 'c-move' },
+    W: { name: 'Left', sub: 'move 1 square', cls: 'c-move' },
+    REP: { name: 'Repeat', sub: 'times', cls: 'c-rep' },
+    IF: { name: 'If blocked', sub: 'rock or edge ahead', cls: 'c-if' },
+    END: { name: 'End', sub: '', cls: 'c-end' },
+  };
+
+  // 紙に出す文（日本語・英語）。lang は 'ja'（既定）か 'en'。日本語の文は英語版を足す前と 1 字も変えていない（tests の比較）
+  var TXT = {
+    ja: {
+      cards: CARDS, start: 'スタート', goal: 'ゴール',
+      boardLabel: function (b) { return b.w + '×' + b.h + ' の盤面。いわ ' + b.rocks.length + ' こ'; },
+      repSub: ' かい',
+      inst: STEP_INST_JA(),
+      rules: function (board) {
+        var r = ['カードは <b>' + board.limit + ' まい</b>まで', 'いわ と ばんの そとには すすめない', 'ゴールに ついたら おわり'];
+        if (board.mode === 'muki') r.splice(1, 0, '「みぎ」「ひだり」は その ばで むきを かえる');
+        if (board.step >= 2) r.push('「くりかえし」〜「ここまで」を かいた かずだけ する');
+        if (board.step >= 3) r.push('「もし」〜「ここまで」は まえが いわ か そとの ときだけ');
+        return r;
+      },
+      name: 'なまえ', credit: 'yorozu-craft.com/unplugged/print/ で作成',
+      subLine: function (board) { return P.STEPS[board.step] + '・' + P.LEVELS[board.level].name + '・' + (board.mode === 'muki' ? 'まえ みぎ ひだり' : 'やじるし'); },
+      boardTitle: 'ロボットを ゴールまで うごかそう',
+      write: 'プログラムを かこう（カードの なまえや やじるしを かく）',
+      cut: '✂ きりとって スタートに おく',
+      puzzleNo: 'もんだい ばんごう ',
+      ansUsed: function (n, limit) { return 'この こたえの カード: <b>' + n + ' まい</b>（じょうげん ' + limit + ' まい）'; },
+      ansSeq: function (board) { return '「じゅんばん」の カードだけで ならべると、いちばん みじかくて <b>' + board.seqShortest + ' まい</b>' + (board.step >= 2 ? '（じょうげんを こえるので、' + (board.step === 2 ? 'くりかえし' : 'もし') + 'が いる）' : ''); },
+      ansOther: 'ほかの ならべかたでも、じょうげんの まいすう いないで ゴールに つけば せいかい',
+      ansIf: 'とちゅうで まがる ところは、まえが いわ か ばんの そと。まっすぐの ところは まえが あいている',
+      ansTitle: 'こたえの れい', sep: '・', ansBadge: '先生・おうちの人用',
+      ansProg: 'プログラム（上から じゅんに）', ansFoot: '赤い 数字は ロボットが すすむ じゅんばん',
+      cardsTitle: 'めいれい カード', cardsSub: '点線で きりとって つかう',
+      pageOf: function (p, t) { return '（' + p + '/' + t + '）'; },
+      cardsFoot: '「くりかえし」の □ には、くりかえす かずを かく',
+    },
+    en: {
+      cards: CARDS_EN, start: 'START', goal: 'GOAL',
+      boardLabel: function (b) { return b.w + '×' + b.h + ' board with ' + b.rocks.length + ' rocks'; },
+      repSub: ' times',
+      inst: {
+        1: 'Put the cards in order to move the robot to the goal.',
+        2: 'Use "Repeat" for moves that come again and again.',
+        3: 'Try the "If blocked" card.',
+      },
+      rules: function (board) {
+        var r = ['Use up to <b>' + board.limit + ' cards</b>', 'The robot cannot move onto a rock or off the board', 'Stop when the robot reaches the goal'];
+        if (board.mode === 'muki') r.splice(1, 0, '"Turn right" and "Turn left" turn the robot on its square');
+        if (board.step >= 2) r.push('"Repeat" runs the cards up to "End" the number of times written');
+        if (board.step >= 3) r.push('"If blocked" runs the cards up to "End" only when a rock or the edge is just ahead');
+        return r;
+      },
+      name: 'Name', credit: 'Made at yorozu-craft.com/unplugged/en/',
+      subLine: function (board) { return STEPS_EN[board.step] + ' · ' + LEVELS_EN[board.level] + ' · ' + (board.mode === 'muki' ? 'Forward and turn cards' : 'Arrow cards'); },
+      boardTitle: 'Move the robot to the goal',
+      write: 'Write your program (card names or arrows)',
+      cut: '✂ Cut out and place on START',
+      puzzleNo: 'Puzzle number ',
+      ansUsed: function (n, limit) { return 'This answer uses <b>' + n + ' cards</b> (limit ' + limit + ').'; },
+      ansSeq: function (board) { return 'With move and turn cards only, the shortest program is <b>' + board.seqShortest + ' cards</b>' + (board.step >= 2 ? ', over the limit, so "' + (board.step === 2 ? 'Repeat' : 'If blocked') + '" is needed.' : '.'); },
+      ansOther: 'Any other program that reaches the goal within the limit is also correct.',
+      ansIf: 'Where the path turns, a rock or the edge is just ahead. Where it goes straight, the way ahead is clear.',
+      ansTitle: 'Sample answer', sep: ' · ', ansBadge: 'For teachers and parents',
+      ansProg: 'Program (top to bottom)', ansFoot: 'Red numbers show the order of the robot\'s moves',
+      cardsTitle: 'Command cards', cardsSub: 'Cut along the dotted lines',
+      pageOf: function (p, t) { return ' (' + p + '/' + t + ')'; },
+      cardsFoot: 'Write the number of times in the box on each "Repeat" card',
+    },
+  };
+  var STEPS_EN = { 1: 'Sequence', 2: 'Repeat', 3: 'If' };
+  var LEVELS_EN = { easy: 'Easy 4×4', normal: 'Medium 5×5', hard: 'Hard 6×6' };
+  function L(lang) { return TXT[lang === 'en' ? 'en' : 'ja']; }
+  function STEP_INST_JA() {
+    return {
+      1: 'カードを じゅんばんに ならべて、ロボットを ゴールまで うごかそう。',
+      2: 'おなじ ならびは「くりかえし」で まとめよう。',
+      3: '「もし まえが とおれない なら」を つかって みよう。',
+    };
+  }
   function cardTypes(mode, step) {
     var t = mode === 'muki' ? ['F', 'R', 'L'] : ['N', 'E', 'S', 'W'];
     if (step >= 2) t = t.concat(['REP', 'END']);
@@ -60,29 +146,29 @@
       ' L' + (cx + 34) + ' ' + (cy - 14) + ' L' + (cx + 40) + ' ' + (cy + 30) + ' Z"/>' +
       '<path class="rock-line" d="M' + (cx - 14) + ' ' + (cy - 8) + ' L' + (cx + 4) + ' ' + (cy + 4) + ' M' + (cx + 12) + ' ' + (cy - 18) + ' L' + (cx + 20) + ' ' + (cy + 12) + '"/></g>';
   }
-  function flag(x, y) {
+  function flag(x, y, label) {
     var cx = x * 100 + 50, cy = y * 100 + 50;
     return '<g class="goal"><rect x="' + (x * 100 + 4) + '" y="' + (y * 100 + 4) + '" width="92" height="92" rx="6" class="goal-bg"/>' +
       '<path d="M' + (cx - 18) + ' ' + (cy + 20) + ' L' + (cx - 18) + ' ' + (cy - 40) + '" class="goal-pole"/>' +
       '<path d="M' + (cx - 16) + ' ' + (cy - 40) + ' L' + (cx + 30) + ' ' + (cy - 26) + ' L' + (cx - 16) + ' ' + (cy - 10) + ' Z" class="goal-flag"/>' +
-      '<text x="' + cx + '" y="' + (cy + 40) + '" text-anchor="middle" class="cell-label">ゴール</text></g>';
+      '<text x="' + cx + '" y="' + (cy + 40) + '" text-anchor="middle" class="cell-label">' + esc(label) + '</text></g>';
   }
 
   /**
    * 盤面の SVG
-   * @param {object} o { path: [[x,y],...] 答えの道（赤い線）、robotAt: {x,y,d} 画面のロボット、startRobot: true でスタートにロボットをうすく }
+   * @param {object} o { path: [[x,y],...] 答えの道（赤い線）、robotAt: {x,y,d} 画面のロボット、startRobot: true でスタートにロボットをうすく、lang: 'ja'|'en' }
    */
   function boardSvg(board, o) {
     o = o || {};
-    var W = board.w * 100, H = board.h * 100, s = [];
-    s.push('<svg class="board" viewBox="-4 -4 ' + (W + 8) + ' ' + (H + 8) + '" role="img" aria-label="' + esc(board.w + '×' + board.h + ' の盤面。いわ ' + board.rocks.length + ' こ') + '">');
+    var W = board.w * 100, H = board.h * 100, s = [], T = L(o.lang);
+    s.push('<svg class="board" viewBox="-4 -4 ' + (W + 8) + ' ' + (H + 8) + '" role="img" aria-label="' + esc(T.boardLabel(board)) + '">');
     s.push('<rect x="0" y="0" width="' + W + '" height="' + H + '" class="b-bg"/>');
     for (var i = 1; i < board.w; i++) s.push('<line x1="' + i * 100 + '" y1="0" x2="' + i * 100 + '" y2="' + H + '" class="b-line"/>');
     for (var j = 1; j < board.h; j++) s.push('<line x1="0" y1="' + j * 100 + '" x2="' + W + '" y2="' + j * 100 + '" class="b-line"/>');
     s.push('<rect x="' + (board.start.x * 100 + 4) + '" y="' + (board.start.y * 100 + 4) + '" width="92" height="92" rx="6" class="start-bg"/>');
-    s.push('<text x="' + (board.start.x * 100 + 50) + '" y="' + (board.start.y * 100 + 94) + '" text-anchor="middle" class="cell-label">スタート</text>');
+    s.push('<text x="' + (board.start.x * 100 + 50) + '" y="' + (board.start.y * 100 + 94) + '" text-anchor="middle" class="cell-label">' + esc(T.start) + '</text>');
     board.rocks.forEach(function (p) { s.push(rock(p[0], p[1])); });
-    s.push(flag(board.goal.x, board.goal.y));
+    s.push(flag(board.goal.x, board.goal.y, T.goal));
     if (o.path && o.path.length > 1) {
       s.push('<polyline class="ans-path" points="' + o.path.map(function (p) { return (p[0] * 100 + 50) + ',' + (p[1] * 100 + 50); }).join(' ') + '"/>');
       o.path.forEach(function (p, n) {
@@ -98,81 +184,73 @@
   }
 
   // カード 1 まい（印刷・答え・画面で共通の見た目）
-  function cardHtml(t, n, cls) {
-    var c = CARDS[t];
-    var sub = t === 'REP' ? '<span class="rep-n">' + (n ? esc(n) : '') + '</span> かい' : esc(c.sub);
+  function cardHtml(t, n, cls, lang) {
+    var T = L(lang), c = T.cards[t];
+    var sub = t === 'REP' ? '<span class="rep-n">' + (n ? esc(n) : '') + '</span>' + T.repSub : esc(c.sub);
     return '<div class="pcard ' + c.cls + (cls ? ' ' + cls : '') + '">' + icon(t) + '<span class="pc-name">' + esc(c.name) + '</span>' + (sub ? '<span class="pc-sub">' + sub + '</span>' : '') + '</div>';
   }
 
   // プログラム（カードの列）を、くりかえし・もしの中を字下げして並べる
-  function programHtml(tokens) {
+  function programHtml(tokens, lang) {
     var depth = 0, rows = [];
     tokens.forEach(function (k) {
       if (k.t === 'END') depth = Math.max(0, depth - 1);
-      rows.push('<li style="--dep:' + depth + '">' + cardHtml(k.t, k.n, 'mini') + '</li>');
+      rows.push('<li style="--dep:' + depth + '">' + cardHtml(k.t, k.n, 'mini', lang) + '</li>');
       if (k.t === 'REP' || k.t === 'IF') depth++;
     });
     return '<ol class="prog">' + rows.join('') + '</ol>';
   }
 
-  var STEP_INST = {
-    1: 'カードを じゅんばんに ならべて、ロボットを ゴールまで うごかそう。',
-    2: 'おなじ ならびは「くりかえし」で まとめよう。',
-    3: '「もし まえが とおれない なら」を つかって みよう。',
-  };
-  function rules(board) {
-    var r = ['カードは <b>' + board.limit + ' まい</b>まで', 'いわ と ばんの そとには すすめない', 'ゴールに ついたら おわり'];
-    if (board.mode === 'muki') r.splice(1, 0, '「みぎ」「ひだり」は その ばで むきを かえる');
-    if (board.step >= 2) r.push('「くりかえし」〜「ここまで」を かいた かずだけ する');
-    if (board.step >= 3) r.push('「もし」〜「ここまで」は まえが いわ か そとの ときだけ');
-    return r;
-  }
+  function rules(board, lang) { return L(lang).rules(board); }
   function boardId(board) { return board.step + '-' + board.level.charAt(0) + (board.mode === 'muki' ? 'm' : 'y') + '-' + board.seed; }
 
   function head(title, sub, o, badge) {
+    var T = L(o.lang);
     return '<header class="sh-head"><div class="sh-title"><h3>' + (badge ? '<span class="ans-badge">' + esc(badge) + '</span> ' : '') + esc(title) + '</h3><p class="sh-sub">' + esc(sub) + '</p></div>' +
-      (o.nameField === false ? '' : '<div class="sh-fields"><span class="f"><span class="lbl">なまえ</span><span class="box name">' + (o.name ? '<span class="name-dark">' + esc(o.name) + '</span>' : '') + '</span></span></div>') + '</header>';
+      (o.nameField === false ? '' : '<div class="sh-fields"><span class="f"><span class="lbl">' + esc(T.name) + '</span><span class="box name">' + (o.name ? '<span class="name-dark">' + esc(o.name) + '</span>' : '') + '</span></span></div>') + '</header>';
   }
   function foot(o, left) {
-    return '<footer class="sh-foot"><span>' + esc(left || '') + '</span><span>' + (o.credit === false ? '' : 'yorozu-craft.com/unplugged/print/ で作成') + '</span></footer>';
+    return '<footer class="sh-foot"><span>' + esc(left || '') + '</span><span>' + (o.credit === false ? '' : esc(L(o.lang).credit)) + '</span></footer>';
   }
-  function subLine(board) { return P.STEPS[board.step] + '・' + P.LEVELS[board.level].name + '・' + (board.mode === 'muki' ? 'まえ みぎ ひだり' : 'やじるし'); }
+  function subLine(board, lang) { return L(lang).subLine(board); }
+  // 用紙: A4（210×297mm、既定）か US Letter（215.9×279.4mm。英語版）。盤面の高さ（mm）は style.css の .sheet-board .board-wrap と同じ
+  var BOARD_H = { a4: 150, letter: 134 };
 
   /** 盤面のページ（子ども用）。プログラムを書くらん・切り取るロボットつき */
   function boardPage(board, o) {
     o = o || {};
-    var cell = Math.min(150 / board.h, 176 / board.w);   // mm
+    var T = L(o.lang);
+    var cell = Math.min((o.paper === 'letter' ? BOARD_H.letter : BOARD_H.a4) / board.h, 176 / board.w);   // mm
     var boxes = '';
     for (var i = 1; i <= board.limit; i++) boxes += '<span class="pbox"><span class="pbox-n">' + i + '</span></span>';
     var piece = Math.max(18, Math.round(cell - 3));
     var robotSvg = '<svg viewBox="0 0 100 100" aria-hidden="true">' + robot(50, 50, 0, 88, '') + '</svg>';
-    return '<section class="sheet sheet-board">' + head('ロボットを ゴールまで うごかそう', subLine(board), o) +
-      '<p class="sh-inst">' + esc(STEP_INST[board.step]) + '</p>' +
-      '<ul class="rules">' + rules(board).map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
-      '<div class="sh-body board-wrap" style="--cell:' + cell.toFixed(2) + 'mm">' + boardSvg(board, { startRobot: 'faint' }) + '</div>' +
-      '<div class="write"><p class="write-h">プログラムを かこう（カードの なまえや やじるしを かく）</p><div class="pboxes">' + boxes + '</div></div>' +
-      '<div class="cutout"><span class="cut-h">✂ きりとって スタートに おく</span>' +
+    return '<section class="sheet sheet-board">' + head(T.boardTitle, subLine(board, o.lang), o) +
+      '<p class="sh-inst">' + esc(T.inst[board.step]) + '</p>' +
+      '<ul class="rules">' + rules(board, o.lang).map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
+      '<div class="sh-body board-wrap" style="--cell:' + cell.toFixed(2) + 'mm">' + boardSvg(board, { startRobot: 'faint', lang: o.lang }) + '</div>' +
+      '<div class="write"><p class="write-h">' + esc(T.write) + '</p><div class="pboxes">' + boxes + '</div></div>' +
+      '<div class="cutout"><span class="cut-h">' + esc(T.cut) + '</span>' +
       '<span class="piece" style="width:' + piece + 'mm;height:' + piece + 'mm">' + robotSvg + '</span><span class="piece" style="width:' + piece + 'mm;height:' + piece + 'mm">' + robotSvg + '</span></div>' +
-      foot(o, 'もんだい ばんごう ' + boardId(board)) + '</section>';
+      foot(o, T.puzzleNo + boardId(board)) + '</section>';
   }
 
   /** こたえのページ（先生・おうちの人用） */
   function answerPage(board, o) {
     o = o || {};
+    var T = L(o.lang);
     var tokens = P.parseCode(board.solution);
     var t = P.trace(board, tokens);
     var cell = Math.min(118 / board.h, 150 / board.w);
-    var notes = [
-      'この こたえの カード: <b>' + tokens.length + ' まい</b>（じょうげん ' + board.limit + ' まい）',
-    ];
-    if (board.seqShortest != null) notes.push('「じゅんばん」の カードだけで ならべると、いちばん みじかくて <b>' + board.seqShortest + ' まい</b>' + (board.step >= 2 ? '（じょうげんを こえるので、' + (board.step === 2 ? 'くりかえし' : 'もし') + 'が いる）' : ''));
-    notes.push('ほかの ならべかたでも、じょうげんの まいすう いないで ゴールに つけば せいかい');
-    if (board.step === 3) notes.push('とちゅうで まがる ところは、まえが いわ か ばんの そと。まっすぐの ところは まえが あいている');
-    return '<section class="sheet sheet-answer">' + head('こたえの れい', subLine(board) + '・もんだい ばんごう ' + boardId(board), { nameField: false }, '先生・おうちの人用') +
-      '<div class="ans-grid"><div class="board-wrap" style="--cell:' + cell.toFixed(2) + 'mm">' + boardSvg(board, { path: t.path, startRobot: true }) + '</div>' +
-      '<div class="ans-prog"><p class="write-h">プログラム（上から じゅんに）</p>' + programHtml(tokens) + '</div></div>' +
+    var notes = [T.ansUsed(tokens.length, board.limit)];
+    if (board.seqShortest != null) notes.push(T.ansSeq(board));
+    notes.push(T.ansOther);
+    if (board.step === 3) notes.push(T.ansIf);
+    return '<section class="sheet sheet-answer">' + head(T.ansTitle, subLine(board, o.lang) + T.sep + T.puzzleNo + boardId(board), { nameField: false, lang: o.lang }, T.ansBadge) +
+      '<div class="ans-grid"><div class="board-wrap" style="--cell:' + cell.toFixed(2) + 'mm">' + boardSvg(board, { path: t.path, startRobot: true, lang: o.lang }) + '</div>' +
+      '<div class="ans-prog"><p class="write-h">' + esc(T.ansProg) + '</p>' + programHtml(tokens, o.lang) + '</div></div>' +
       '<ul class="ans-notes">' + notes.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
-      foot(o, '赤い 数字は ロボットが すすむ じゅんばん') + '</section>';
+      foot(o, T.ansFoot) + '</section>';
   }
 
   /** カードを何まい印刷するか（盤面ごとの答え・いちばん短い道で使う数の最大 ＋ 予備 2 まい。くりかえしの数は空らん） */
@@ -194,27 +272,28 @@
   /** カードのページ（切り取って使う）。big は黒板に貼る大きさ（1 ページ 6 まい） */
   function cardPages(boards, o) {
     o = o || {};
+    var T = L(o.lang);
     var list = cardList(boards);
     var per = o.big ? 6 : 18, pages = [];
     var total = Math.ceil(list.length / per);
     for (var p = 0; p < total; p++) {
       var part = list.slice(p * per, (p + 1) * per);
       pages.push('<section class="sheet sheet-cards' + (o.big ? ' big' : '') + '">' +
-        head('めいれい カード', '点線で きりとって つかう' + (total > 1 ? '（' + (p + 1) + '/' + total + '）' : ''), { nameField: false }) +
-        '<div class="cut-grid">' + part.map(function (t) { return cardHtml(t, ''); }).join('') + '</div>' +
-        foot(o, boards[0].step >= 2 ? '「くりかえし」の □ には、くりかえす かずを かく' : '') + '</section>');
+        head(T.cardsTitle, T.cardsSub + (total > 1 ? T.pageOf(p + 1, total) : ''), { nameField: false, lang: o.lang }) +
+        '<div class="cut-grid">' + part.map(function (t) { return cardHtml(t, '', '', o.lang); }).join('') + '</div>' +
+        foot(o, boards[0].step >= 2 ? T.cardsFoot : '') + '</section>');
     }
     return pages;
   }
 
   /**
    * 印刷するページをすべて作る
-   * @param {object} s 設定 { step, level, mode, seed, boards: 枚数, parts: { board, cards, answer }, big, name, credit }
+   * @param {object} s 設定 { step, level, mode, seed, boards: 枚数, parts: { board, cards, answer }, big, name, credit }。lang（'en' で英語）と paper（'letter' で US Letter）は画面が足す
    */
   function buildPages(s) {
     var boards = [];
     for (var i = 0; i < s.boards; i++) boards.push(P.generate({ step: s.step, level: s.level, mode: s.mode, seed: seedFor(s.seed, i) }));
-    var o = { name: s.name, credit: s.credit, big: s.big };
+    var o = { name: s.name, credit: s.credit, big: s.big, lang: s.lang, paper: s.paper };
     var pages = [];
     if (s.parts.board) boards.forEach(function (b) { pages.push(boardPage(b, o)); });
     if (s.parts.cards) pages = pages.concat(cardPages(boards, o));
@@ -224,7 +303,7 @@
   // 2 枚目からの盤面の種（1 枚目は設定の種そのまま）
   function seedFor(seed, i) { return ((seed - 1 + i * 7331) % 99999) + 1; }
 
-  var api = { CARDS: CARDS, cardTypes: cardTypes, icon: icon, robot: robot, boardSvg: boardSvg, cardHtml: cardHtml, programHtml: programHtml,
+  var api = { CARDS: CARDS, CARDS_EN: CARDS_EN, TXT: TXT, STEPS_EN: STEPS_EN, LEVELS_EN: LEVELS_EN, cardTypes: cardTypes, icon: icon, robot: robot, boardSvg: boardSvg, cardHtml: cardHtml, programHtml: programHtml,
     boardPage: boardPage, answerPage: answerPage, cardList: cardList, cardPages: cardPages, buildPages: buildPages, seedFor: seedFor, boardId: boardId, rules: rules, esc: esc };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Sheets = api;

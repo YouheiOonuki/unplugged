@@ -52,6 +52,7 @@ a { color: var(--accent); }
 }
 .app-header h1 { font-size: 1.45rem; color: var(--accent); line-height: 1.4; }
 .app-header .subtitle { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; }
+.app-header .lang-switch { font-size: 0.82rem; margin-top: 0.3rem; }   /* 日本語 ⇄ English（hreflang の対のページへ） */
 
 /* レイアウト */
 .app-main { max-width: 680px; margin: 0 auto; padding: 1rem; }
@@ -350,6 +351,12 @@ fieldset.plain legend { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3
 .sheet-cards.big .pcard .pc-sub { font-size: 16pt; }
 .sheet-cards.big .pcard .rep-n { min-width: 18mm; height: 15mm; font-size: 26pt; }
 
+/* US Letter（215.9×279.4mm。英語版 en/ で選べる）。盤面の高さは sheets.js の BOARD_H.letter（134）＋2 */
+.sheets.letter .sheet { width: 215.9mm; height: 279.4mm; }
+.sheets.letter .sheet-board .board-wrap, .sheets.letter .sheet-board .board-wrap .board { height: 136mm; }
+.sheets.letter .cut-grid { grid-auto-rows: 39mm; }
+.sheets.letter .sheet-cards.big .cut-grid { grid-auto-rows: 78mm; }
+
 @page { size: A4 portrait; margin: 0; }
 @media print {
   html, body { background: #fff !important; margin: 0; padding: 0; }
@@ -361,6 +368,7 @@ fieldset.plain legend { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3
   .sheets { min-height: 0; margin: 0; overflow: visible; text-align: left; }
   .sheets .sheet, .sheets .sheet + .sheet { display: flex; zoom: 1; margin: 0; box-shadow: none; break-after: page; page-break-after: always; height: 296.6mm; }
   .sheets .sheet:last-child { break-after: auto; page-break-after: auto; }
+  .sheets.letter .sheet, .sheets.letter .sheet + .sheet { height: 279mm; }
 }
 
 /* ===========================

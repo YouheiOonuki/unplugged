@@ -67,26 +67,44 @@
 
   /**
    * 読み込んだファイルの文字列を確かめる。中身の正規化は画面側の既存の関数で行う
+   * @param {string} [lang] 'en' なら英語の文（英語版 en/ の画面）
    * @returns {{ok: true, data: object} | {ok: false, error: string}} error は画面にそのまま出す文
    */
-  function parseBackup(text, tool, requiredKeys) {
+  var BACKUP_MSG = {
+    ja: {
+      read: 'ファイルを読み取れませんでした。このツールの「ファイルに書き出す」で作った .json ファイルを選んでください。',
+      other: function (t) { return 'ほかのツール（' + t + '）のファイルです。このツールで書き出したファイルを選んでください。'; },
+      newer: '新しい版のツールで書き出したファイルのため読み込めません。ページを再読み込みしてから、もう一度お試しください。',
+      format: 'ファイルの形式が正しくないため読み込めません。',
+      missing: 'ファイルの中身が足りないため読み込めません。',
+    },
+    en: {
+      read: 'This file could not be read. Choose a .json file made with "Save to a file" in this tool.',
+      other: function (t) { return 'This file is from another tool (' + t + '). Choose a file saved from this tool.'; },
+      newer: 'This file was saved by a newer version of the tool. Reload the page and try again.',
+      format: 'This file is not in the right format.',
+      missing: 'This file is missing some settings.',
+    },
+  };
+  function parseBackup(text, tool, requiredKeys, lang) {
+    var M = BACKUP_MSG[lang === 'en' ? 'en' : 'ja'];
     var o;
     try { o = JSON.parse(text); } catch (e) { o = null; }
     if (!o || typeof o !== 'object' || Array.isArray(o) || typeof o.tool !== 'string') {
-      return { ok: false, error: 'ファイルを読み取れませんでした。このツールの「ファイルに書き出す」で作った .json ファイルを選んでください。' };
+      return { ok: false, error: M.read };
     }
     if (o.tool !== tool) {
-      return { ok: false, error: 'ほかのツール（' + o.tool.slice(0, 40) + '）のファイルです。このツールで書き出したファイルを選んでください。' };
+      return { ok: false, error: M.other(o.tool.slice(0, 40)) };
     }
     if (o.version !== BACKUP_VERSION) {
       return { ok: false, error: typeof o.version === 'number' && o.version > BACKUP_VERSION
-        ? '新しい版のツールで書き出したファイルのため読み込めません。ページを再読み込みしてから、もう一度お試しください。'
-        : 'ファイルの形式が正しくないため読み込めません。' };
+        ? M.newer
+        : M.format };
     }
     var data = o.data;
     var missing = !data || typeof data !== 'object' || Array.isArray(data) ||
       (requiredKeys || []).some(function (k) { return data[k] === undefined || data[k] === null; });
-    if (missing) return { ok: false, error: 'ファイルの中身が足りないため読み込めません。' };
+    if (missing) return { ok: false, error: M.missing };
     return { ok: true, data: data };
   }
 
