@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unplugged Coding Printables – Robot Board, Command Cards and Answers | yorozu-craft</title>
+  <meta name="description" content="Free unplugged coding printables: a robot board, cut-out command cards (forward, turn, repeat, if blocked) and an answer sheet. A new puzzle every time, three steps: sequence, repeat, if. A4 or Letter. No sign-up.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yorozu-craft.com/unplugged/en/">
+  <link rel="alternate" hreflang="ja" href="https://yorozu-craft.com/unplugged/">
+  <link rel="alternate" hreflang="en" href="https://yorozu-craft.com/unplugged/en/">
+  <link rel="alternate" hreflang="x-default" href="https://yorozu-craft.com/unplugged/">
+
+  <meta property="og:title" content="Unplugged Coding Printables – Robot Board and Command Cards">
+  <meta property="og:description" content="Print a robot board, command cards and an answer sheet. A new puzzle every time: sequence, repeat, if. A4 or Letter. No sign-up.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yorozu-craft.com/unplugged/en/">
+  <meta property="og:site_name" content="yorozu-craft">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:image" content="https://yorozu-craft.com/unplugged/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#8b4513" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1814" media="(prefers-color-scheme: dark)">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Unplugged Coding Printables",
+    "description": "Print a robot board, cut-out command cards and an answer sheet for screen-free coding lessons. A new puzzle every time in three steps: sequence, repeat, if.",
+    "url": "https://yorozu-craft.com/unplugged/en/",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+    "inLanguage": "en"
+  }
+  </script>
+
+  <!-- Google AdSense（サイト所有確認 + 広告配信スクリプト）。広告は印刷に出さない（style.css の @media print） -->
+  <meta name="google-adsense-account" content="ca-pub-5375267956079717">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5375267956079717"
+     crossorigin="anonymous"></script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../style.css">
+  <!-- 用紙（A4 か US Letter）。main-en.js が選んだ用紙に書き換える -->
+  <style id="page-size">@page { size: A4 portrait; margin: 0; }</style>
+</head>
+<body class="tool-page">
+
+  <!-- 固定バー（SCREEN.md 1.2）: 印刷ボタンが画面の外にあるときだけ上端に出す -->
+  <div class="fixbar" id="fixbar" role="status" hidden>
+    <span class="fixbar-type" id="fixbar-text"></span>
+    <button type="button" class="btn" id="fixbar-print">Print</button>
+  </div>
+
+  <header class="app-header">
+    <h1>Unplugged coding printables</h1>
+    <p class="subtitle">Print a robot board, command cards and answers on A4 or Letter. No sign-up; your settings never leave this browser.</p>
+    <p class="lang-switch"><a href="../" hreflang="ja" lang="ja">日本語</a></p>
+  </header>
+
+  <main class="app-main">
+    <div id="shared-banner" class="notice" role="status" hidden></div>
+
+    <!-- 1. 種類（段階） -->
+    <section class="card" id="sec-type" aria-labelledby="h-type">
+      <h2 id="h-type">What to learn</h2>
+      <div class="types">
+        <label class="tile"><input type="radio" name="step" value="1" checked><span class="t-ico" aria-hidden="true">1</span><span class="t-name">Sequence</span><span class="t-sub">step by step</span></label>
+        <label class="tile"><input type="radio" name="step" value="2"><span class="t-ico" aria-hidden="true">2</span><span class="t-name">Repeat</span><span class="t-sub">loops</span></label>
+        <label class="tile"><input type="radio" name="step" value="3"><span class="t-ico" aria-hidden="true">3</span><span class="t-name">If</span><span class="t-sub">conditions</span></label>
+      </div>
+    </section>
+
+    <!-- 2. 最小の設定（SCREEN.md 1.2 の 3） -->
+    <fieldset class="card req" id="sec-opts">
+      <legend>Board, cards and paper</legend>
+      <div class="field">
+        <span class="lbl-plain" id="lbl-level">Level</span>
+        <div class="seg" role="radiogroup" aria-labelledby="lbl-level">
+          <label><input type="radio" name="level" value="easy" checked> Easy 4×4</label>
+          <label><input type="radio" name="level" value="normal"> Medium 5×5</label>
+          <label><input type="radio" name="level" value="hard"> Hard 6×6</label>
+        </div>
+      </div>
+      <div class="field">
+        <span class="lbl-plain" id="lbl-mode">Cards</span>
+        <div class="seg" role="radiogroup" aria-labelledby="lbl-mode">
+          <label><input type="radio" name="mode" value="yaji" checked> Arrows ↑→↓←</label>
+          <label><input type="radio" name="mode" value="muki"> Forward and turn</label>
+        </div>
+        <p class="hint" id="mode-note">Arrows move one square that way. Turn cards turn the robot on its square.</p>
+      </div>
+      <div class="field">
+        <span class="lbl-plain" id="lbl-paper">Paper</span>
+        <div class="seg" role="radiogroup" aria-labelledby="lbl-paper">
+          <label><input type="radio" name="paper" value="a4" checked> A4</label>
+          <label><input type="radio" name="paper" value="letter"> US Letter</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- 3. 主なボタン -->
+    <div class="btn-row print-row" id="print-row">
+      <button type="button" class="btn" id="btn-print">Print</button>
+      <button type="button" class="btn btn-sub" id="btn-new">New puzzle</button>
+    </div>
+
+    <!-- 4. 見本（印刷ではこの DOM がそのまま出る） -->
+    <section class="card" id="sec-preview" aria-labelledby="h-preview">
+      <h2 id="h-preview">Preview <span class="small" id="preview-info"></span></h2>
+      <div class="sheets" id="sheets" aria-live="polite"></div>
+    </section>
+
+    <!-- 5. くわしい設定 -->
+    <details class="card opt no-print" id="opt-more">
+      <summary>More settings: <span class="opt-state"></span></summary>
+      <fieldset class="field plain">
+        <legend>Pages to print</legend>
+        <label class="inline"><input type="checkbox" id="part-board" checked> Board (with program boxes and a cut-out robot)</label>
+        <label class="inline"><input type="checkbox" id="part-cards" checked> Command cards (to cut out)</label>
+        <label class="inline"><input type="checkbox" id="part-answer" checked> Answer sheet (for teachers and parents)</label>
+      </fieldset>
+      <div class="field">
+        <label for="boards">Number of boards</label>
+        <select id="boards"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
+      </div>
+      <label class="inline field"><input type="checkbox" id="big"> Large cards for the board at the front (6 per page)</label>
+      <div class="field">
+        <label for="name">Name (printed on the board; leave blank for a line)</label>
+        <input type="text" id="name" maxlength="20" autocomplete="off">
+      </div>
+      <label class="inline field"><input type="checkbox" id="credit" checked> Add "Made at yorozu-craft.com/unplugged/en/" at the bottom</label>
+      <div class="field">
+        <label for="seed">Puzzle number (the same number gives the same board)</label>
+        <input type="number" id="seed" min="1" max="99999" inputmode="numeric">
+      </div>
+    </details>
+
+    <!-- 6. 共有・保存 -->
+    <details class="card opt no-print" id="file-box">
+      <summary>Share and save</summary>
+      <p class="small">Settings are saved only in this browser (localStorage, keys starting with <code>unplugged_</code>) and are never sent anywhere.</p>
+      <div class="btn-row">
+        <button type="button" id="share" class="btn btn-sub">Copy a link to this puzzle</button>
+        <button type="button" id="backup-export" class="btn btn-sub">Save to a file</button>
+        <button type="button" id="backup-import" class="btn btn-sub">Load from a file</button>
+        <button type="button" class="btn btn-sub" data-reset-storage="unplugged_">Delete everything saved (reset)</button>
+      </div>
+      <input type="file" id="backup-file" accept=".json,application/json" hidden>
+      <p id="backup-msg" class="small" aria-live="polite"></p>
+    </details>
+
+    <p class="small no-print"><a href="./guide.html">How to use, card rules and FAQ</a> · <a href="./lessons.html">Lesson ideas</a></p>
+  </main>
+
+  <footer class="app-footer">
+    <nav class="footer-nav" aria-label="Footer">
+      <ul>
+        <li><a href="https://yorozu-craft.com/en/">yorozu-craft</a></li>
+        <li><a href="./" aria-current="page">Unplugged coding printables</a></li>
+        <li><a href="./guide.html">Guide and FAQ</a></li>
+        <li><a href="./lessons.html">Lesson ideas</a></li>
+        <li><a href="../../en/about.html">About</a></li>
+        <li><a href="../../en/privacy-policy.html">Privacy policy</a></li>
+      </ul>
+    </nav>
+    <p>&copy; 2026 yorozu-craft. All rights reserved.</p>
+  </footer>
+
+  <script src="../screen.js"></script>
+  <script src="../puzzle.js"></script>
+  <script src="../calc.js"></script>
+  <script src="../sheets.js"></script>
+  <script src="../reset-storage.js"></script>
+  <script src="./main-en.js"></script>
+  <!-- Cloudflare Web Analytics（Cookie を使わないアクセス解析） --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b79bf821e1fd4b6683866d493b1de426"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
