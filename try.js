@@ -82,7 +82,7 @@
   });
 
   function renderProg(now, bad) {
-    if (!prog.length) { $('prog-box').innerHTML = '<p class="small">上の カードを おして ならべよう</p>'; }
+    if (!prog.length) { $('prog-box').innerHTML = '<output class="small" id="prog-empty">上の カードを おして ならべよう</output>'; }
     else {
       $('prog-box').innerHTML = S.programHtml(prog);
       var lis = $('prog-box').querySelectorAll('li');
