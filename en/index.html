@@ -95,13 +95,6 @@
         </div>
         <output class="hint" id="mode-note">Arrows move one square that way. Turn cards turn the robot on its square.</output>
       </div>
-      <div class="field">
-        <span class="lbl-plain" id="lbl-paper">Paper</span>
-        <div class="seg" role="radiogroup" aria-labelledby="lbl-paper">
-          <label><input type="radio" name="paper" value="a4" checked> A4</label>
-          <label><input type="radio" name="paper" value="letter"> US Letter</label>
-        </div>
-      </div>
     </fieldset>
 
     <!-- 3. 主なボタン -->
@@ -119,6 +112,13 @@
     <!-- 5. くわしい設定 -->
     <details class="card opt no-print" id="opt-more">
       <summary>More settings: <span class="opt-state"></span></summary>
+      <div class="field">
+        <span class="lbl-plain" id="lbl-paper">Paper</span>
+        <div class="seg" role="radiogroup" aria-labelledby="lbl-paper">
+          <label><input type="radio" name="paper" value="a4" checked> A4</label>
+          <label><input type="radio" name="paper" value="letter"> US Letter</label>
+        </div>
+      </div>
       <fieldset class="field plain">
         <legend>Pages to print</legend>
         <label class="inline"><input type="checkbox" id="part-board" checked> Board (with program boxes and a cut-out robot)</label>
