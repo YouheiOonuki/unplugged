@@ -60,7 +60,7 @@
     $('btn-print').disabled = out.pages.length === 0;
     $('preview-info').textContent = out.pages.length + (out.pages.length === 1 ? ' page' : ' pages') + ' · puzzle ' + S.boardId(out.boards[0]);
     var parts = [s.parts.board && 'board', s.parts.cards && 'cards', s.parts.answer && 'answers'].filter(Boolean).join(', ') || 'nothing';
-    window.YorozuScreen.detailsSummary({ 'opt-more': parts + '; ' + s.boards + (s.boards === 1 ? ' board' : ' boards') + (s.big ? '; large cards' : '') });
+    window.YorozuScreen.detailsSummary({ 'opt-more': (pp === 'letter' ? 'US Letter' : 'A4') + '; ' + parts + '; ' + s.boards + (s.boards === 1 ? ' board' : ' boards') + (s.big ? '; large cards' : '') });
     bar.set(S.STEPS_EN[s.step] + ' · ' + S.LEVELS_EN[s.level] + ' (' + out.pages.length + (out.pages.length === 1 ? ' page)' : ' pages)'));
     fitPreview();
     if (!sharedView) store.set('en_settings', s);
