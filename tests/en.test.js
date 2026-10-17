@@ -83,7 +83,7 @@ test('英語のページに日本語の文字が無い（言語の切り替え�
     assert.equal(m, null, p + ': ' + (m && t.slice(Math.max(0, m.index - 30), m.index + 30)));
     const head = h.match(/<head>[\s\S]*<\/head>/)[0].replace(/<!--[\s\S]*?-->/g, '');
     assert.equal(head.match(JA), null, p + ' head');
-    assert.match(h, /<html lang="en">/);
+    assert.match(h, /<html lang="en"[ >]/);
     assert.ok(h.includes('href="https://yorozu-craft.com/en/"'), p + ' home');
   }
   const js = read('en/main-en.js').split('\n').map((l) => l.replace(/\/\/.*$/, '')).join('\n');
