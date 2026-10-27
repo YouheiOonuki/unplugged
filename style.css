@@ -215,7 +215,7 @@ output#mode-note { display: block; }   /* カードの説明は output（段 3 �
 .seg label { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: var(--tap); margin: 0; border: 1px solid var(--input-border); border-radius: var(--radius); padding: 0 var(--sp-3); font-weight: 700; cursor: pointer; }
 .seg label:has(input:checked) { background: var(--accent-soft); border-color: var(--accent); }
 .seg label:has(input:disabled) { opacity: 0.45; cursor: not-allowed; }
-.seg label:has(input:focus-visible), .tile:has(input:focus-visible) { outline: 4px solid var(--focus-ring); outline-offset: 2px; box-shadow: 0 0 0 2px var(--focus); }
+.tile:has(input:focus-visible) { outline: 4px solid var(--focus-ring); outline-offset: 2px; box-shadow: 0 0 0 2px var(--focus); }
 
 /* 種類のタイル */
 .types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2); }
@@ -378,7 +378,6 @@ details.about-tool ul { padding-left: 1.2rem; margin: var(--sp-1) 0 var(--sp-2);
 .prog-box .pcard.mini .rep-n { min-width: 16px; height: 16px; font-size: 12px; line-height: 14px; }
 .prog-box li.now .pcard { outline: 3px solid #e0452b; outline-offset: 1px; }
 .prog-box li.bad .pcard { outline: 3px dashed #c0392b; }
-.prog-box .dep-mark { color: var(--muted); font-size: 0.75rem; }
 .prog-count { font-size: 0.8rem; color: var(--muted); text-align: right; }
 .run-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.4rem; margin: 0.5rem 0; }
 .run-row .btn { min-height: 48px; white-space: nowrap; padding: 0.5rem 0.4rem; font-size: 0.88rem; }
