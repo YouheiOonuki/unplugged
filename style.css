@@ -186,7 +186,7 @@ output#mode-note { display: block; }   /* カードの説明は output（段 3 �
 
 /* くわしく入れる（1 グループ 1 つの details）。summary の .opt-state に今の状態を出す（screen.js の detailsSummary） */
 :where(html:not([data-skin="base"])) details.card.opt { padding: 0 var(--sp-4); margin-bottom: var(--sp-3); }
-:where(html:not([data-skin="base"])) details.card.opt > summary { min-height: var(--tap); padding: var(--sp-3) 0; color: var(--accent); }
+:where(html:not([data-skin="base"])) details.card.opt > summary { min-height: var(--tap); padding: var(--sp-3) 0; }
 :where(html:not([data-skin="base"])) details.card.opt[open] { padding-bottom: var(--sp-4); }
 :where(html:not([data-skin="base"])) details.card.opt[open] > summary { border-bottom: 1px solid var(--border); margin-bottom: var(--sp-4); }
 :where(html:not([data-skin="base"])) .opt-state { color: var(--text); font-weight: 400; }
