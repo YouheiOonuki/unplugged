@@ -19,12 +19,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yorozu-craft.com/unplugged/try.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://yorozu-craft.com/unplugged/jugyou.html</loc>
     <xhtml:link rel="alternate" hreflang="ja" href="https://yorozu-craft.com/unplugged/jugyou.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://yorozu-craft.com/unplugged/en/lessons.html"/>
