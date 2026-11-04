@@ -59,6 +59,7 @@
     bar.set(P.STEPS[s.step] + '・' + P.LEVELS[s.level].name + '（' + out.pages.length + ' ページ）');
     fitPreview();
     if (!sharedView) store.set('settings', s);
+    window.yzUsed?.();
     return s;
   }
 

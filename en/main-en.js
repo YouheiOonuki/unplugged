@@ -65,6 +65,7 @@
     fitPreview();
     if (!sharedView) store.set('en_settings', s);
     store.set('en_paper', pp);
+    window.yzUsed?.();
     return s;
   }
 
