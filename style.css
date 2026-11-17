@@ -363,16 +363,17 @@ details.about-tool ul { padding-left: 1.2rem; margin: var(--sp-1) 0 var(--sp-2);
 .try-page .app-header h1 { font-size: 1.05rem; }
 .try-page .app-main { padding: 0.5rem 0.75rem; }
 .try-top { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 0.4rem; }
+.try-top a, .try-page .app-main > p.small a { display: inline-flex; align-items: center; min-height: 44px; }   /* 押す所は 44 px 以上（Q-371） */
 .try-board { background: #fff; border-radius: 8px; padding: 4px; max-width: 420px; margin: 0 auto; display: flex; justify-content: center; }
 .try-board .board { width: 100%; height: auto; display: block; max-height: 37vh; }
 .try-rule { font-size: 0.8rem; color: var(--muted); text-align: center; margin: 0.2rem 0; }
-.palette { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.35rem; margin: 0.4rem 0; }
+.palette { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 0.4rem 0; }
 .palette button { min-height: 48px; font-family: inherit; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.2rem; font-size: 0.85rem; font-weight: 700; padding: 0.2rem; }
 .palette button .ic { width: 22px; height: 22px; flex: none; }
 .palette button span { white-space: nowrap; font-size: 0.82rem; }
 .palette .c-move .ic { color: #1f5fa6; } .palette .c-turn .ic { color: #2b7a33; } .palette .c-rep .ic { color: #b86400; } .palette .c-if .ic { color: #7a3aa0; } .palette .c-end .ic { color: #777; }
 .rep-pick { grid-column: span 2; display: flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; justify-content: center; white-space: nowrap; }
-.rep-pick select { font-size: 1rem; padding: 0.2rem; border-radius: 6px; border: 1px solid var(--input-border); background: var(--card); color: var(--text); }
+.rep-pick select { min-height: 44px; min-width: 44px; font-size: 1rem; padding: 0.2rem; border-radius: 6px; border: 1px solid var(--input-border); background: var(--card); color: var(--text); }
 .prog-box { background: var(--card); border: 1px solid var(--border); border-radius: 8px; min-height: 52px; padding: 0.4rem; }
 .prog-box .prog { display: flex; flex-wrap: wrap; gap: 0.25rem; align-items: center; }
 .prog-box .prog li { margin: 0; }
@@ -384,7 +385,7 @@ details.about-tool ul { padding-left: 1.2rem; margin: var(--sp-1) 0 var(--sp-2);
 .prog-box li.now .pcard { outline: 3px solid #e0452b; outline-offset: 1px; }
 .prog-box li.bad .pcard { outline: 3px dashed #c0392b; }
 .prog-count { font-size: 0.8rem; color: var(--muted); text-align: right; }
-.run-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.4rem; margin: 0.5rem 0; }
+.run-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px; margin: 0.5rem 0; }
 .run-row .btn { min-height: 48px; white-space: nowrap; padding: 0.5rem 0.4rem; font-size: 0.88rem; }
 .try-result { font-size: 1.05rem; font-weight: 700; text-align: center; min-height: 1.6em; }
 .try-result.ok { color: #2b7a33; }
