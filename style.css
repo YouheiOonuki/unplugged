@@ -220,6 +220,7 @@ output#mode-note { display: block; }   /* カードの説明は output（段 3 �
 .seg label { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: var(--tap); margin: 0; border: 1px solid var(--input-border); border-radius: var(--radius); padding: 0 var(--sp-3); font-weight: 700; cursor: pointer; }
 .seg label:has(input:checked) { background: var(--accent-soft); border-color: var(--accent); }
 .seg label:has(input:disabled) { opacity: 0.45; cursor: not-allowed; }
+fieldset.plain label.inline { margin-bottom: var(--sp-2); }   /* 並んだチェックの間を 8 px 以上に（Q-411） */
 .tile:has(input:focus-visible) { outline: 4px solid var(--focus-ring); outline-offset: 2px; box-shadow: 0 0 0 2px var(--focus); }
 
 /* 種類のタイル */
@@ -364,6 +365,7 @@ details.about-tool ul { padding-left: 1.2rem; margin: var(--sp-1) 0 var(--sp-2);
 .try-page .app-main { padding: 0.5rem 0.75rem; }
 .try-top { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 0.4rem; }
 .try-top a, .try-page .app-main > p.small a { display: inline-flex; align-items: center; min-height: 44px; }   /* 押す所は 44 px 以上（Q-371） */
+.try-page .field select { min-height: 44px; }   /* 「べつの もんだい」の選ぶ所も 44 px 以上（Q-411） */
 .try-board { background: #fff; border-radius: 8px; padding: 4px; max-width: 420px; margin: 0 auto; display: flex; justify-content: center; }
 .try-board .board { width: 100%; height: auto; display: block; max-height: 37vh; }
 .try-rule { font-size: 0.8rem; color: var(--muted); text-align: center; margin: 0.2rem 0; }

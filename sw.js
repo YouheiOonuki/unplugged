@@ -10,7 +10,7 @@
 'use strict';
 
 const CACHE_PREFIX = 'unplugged-';
-const CACHE_NAME   = `${CACHE_PREFIX}v6`; // キャッシュする中身の構成を変えたら上げる（v4: 共通の部品 yorozu-common v1。v5: ためす画面の押す所の大きさ Q-371。v6: カードの字をボタンの中に Q-397）
+const CACHE_NAME   = `${CACHE_PREFIX}v7`; // キャッシュする中身の構成を変えたら上げる（v4: 共通の部品 yorozu-common v1。v5: ためす画面の押す所の大きさ Q-371。v6: カードの字をボタンの中に Q-397。v7: 折りたたみの中の選ぶ所の大きさと間 Q-411）
 
 /** 初回インストール時に取得しておくファイル */
 const PRECACHE_URLS = [
