@@ -370,7 +370,12 @@ details.about-tool ul { padding-left: 1.2rem; margin: var(--sp-1) 0 var(--sp-2);
 .palette { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 0.4rem 0; }
 .palette button { min-height: 48px; font-family: inherit; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.2rem; font-size: 0.85rem; font-weight: 700; padding: 0.2rem; }
 .palette button .ic { width: 22px; height: 22px; flex: none; }
-.palette button span { white-space: nowrap; font-size: 0.82rem; }
+.palette button span { white-space: nowrap; font-size: 14px; }
+/* 幅 479px 以下では絵を字の上に置き、字はボタンの幅で折る（Q-397。320 幅の「くりかえし」は 2 行）。字は 14px のまま */
+@media (max-width: 479px) {
+  .palette button { flex-direction: column; gap: 2px; padding: 4px 2px; }
+  .palette button span { white-space: normal; line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
+}
 .palette .c-move .ic { color: #1f5fa6; } .palette .c-turn .ic { color: #2b7a33; } .palette .c-rep .ic { color: #b86400; } .palette .c-if .ic { color: #7a3aa0; } .palette .c-end .ic { color: #777; }
 .rep-pick { grid-column: span 2; display: flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; justify-content: center; white-space: nowrap; }
 .rep-pick select { min-height: 44px; min-width: 44px; font-size: 1rem; padding: 0.2rem; border-radius: 6px; border: 1px solid var(--input-border); background: var(--card); color: var(--text); }
