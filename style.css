@@ -113,7 +113,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 :where(html[data-skin="base"]) .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 :where(html[data-skin="base"]) .small { font-size: var(--fs-s); color: var(--muted); margin-top: 0.4rem; }
 :where(html[data-skin="base"]) .app-footer { text-align: center; padding: 1rem; font-size: var(--fs-s); color: var(--muted); border-top: 1px solid var(--border); margin-top: 0.5rem; }
-:where(html[data-skin="base"]) .footer-nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; gap: 0.4rem 1.1rem; margin-bottom: 0.6rem; }
+:where(html[data-skin="base"]) .footer-nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5rem 1.1rem; margin-bottom: 0.6rem; }
 :where(html[data-skin="base"]) .footer-nav a { color: var(--muted); text-decoration: none; }
 :where(html[data-skin="base"]) .footer-nav a:hover, :where(html[data-skin="base"]) .footer-nav a[aria-current="page"] { color: var(--accent); }
 :where(html[data-skin="base"]) details.card.opt { padding: 0 1.2rem; margin-bottom: 0.6rem; }
@@ -174,7 +174,7 @@ output#mode-note { display: block; }   /* カードの説明は output（段 3 �
 
 /* フッター */
 :where(html:not([data-skin="base"])) .app-footer { text-align: center; padding: var(--sp-4); font-size: var(--fs-s); color: var(--muted); border-top: 1px solid var(--border); margin-top: var(--sp-2); }
-:where(html:not([data-skin="base"])) .footer-nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; gap: 0 1.1rem; margin-bottom: var(--sp-2); }
+:where(html:not([data-skin="base"])) .footer-nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; gap: var(--sp-2) 1.1rem; margin-bottom: var(--sp-2); }
 :where(html:not([data-skin="base"])) .footer-nav a { display: inline-flex; align-items: center; min-height: var(--tap); color: var(--muted); text-decoration: none; }
 :where(html:not([data-skin="base"])) .footer-nav a:hover, :where(html:not([data-skin="base"])) .footer-nav a[aria-current="page"] { color: var(--accent); }
 
