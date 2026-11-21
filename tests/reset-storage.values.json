@@ -1,0 +1,11 @@
+{
+  "src": "reset-storage.js",
+  "prefixes": [
+    "unplugged_"
+  ],
+  "legacy": [],
+  "pagePrefixes": {},
+  "pageLegacy": {},
+  "inline": [],
+  "skipDirs": []
+}
