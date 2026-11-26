@@ -1,0 +1,15 @@
+{
+  "module": "calc.js",
+  "tool": "unplugged",
+  "data": {
+    "settings": {
+      "step": 2,
+      "level": "normal",
+      "mode": "muki",
+      "seed": 123
+    }
+  },
+  "required": [
+    "settings"
+  ]
+}
